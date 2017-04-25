@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\UserFollowed;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -18,6 +19,10 @@ class UsersController extends Controller
         $follower = auth()->user();
         if(!$follower->isFollowing($user->id)) {
             $follower->follow($user->id);
+
+            // sending a notification
+            $user->notify(new UserFollowed($follower));
+
             return back()->withSuccess("You are now friends with {$user->name}");
         }
         return back()->withSuccess("You are already following {$user->name}");
