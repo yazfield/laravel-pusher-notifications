@@ -5,7 +5,8 @@ require('bootstrap-sass');
 var notifications = [];
 
 const NOTIFICATION_TYPES = {
-    follow: 'App\\Notifications\\UserFollowed'
+    follow: 'App\\Notifications\\UserFollowed',
+    newPost: 'App\\Notifications\\NewPost'
 };
 
 $(document).ready(function() {
@@ -48,6 +49,9 @@ function routeNotification(notification) {
     var to = `?read=${notification.id}`;
     if(notification.type === NOTIFICATION_TYPES.follow) {
         to = 'users' + to;
+    } else if(notification.type === NOTIFICATION_TYPES.newPost) {
+        const postId = notification.data.post_id;
+        to = `posts/${postId}` + to;
     }
     return '/' + to;
 }
@@ -58,6 +62,9 @@ function makeNotificationText(notification) {
     if(notification.type === NOTIFICATION_TYPES.follow) {
         const name = notification.data.follower_name;
         text += `<strong>${name}</strong> followed you`;
+    } else if(notification.type === NOTIFICATION_TYPES.newPost) {
+        const name = notification.data.following_name;
+        text += `<strong>${name}</strong> published a post`;
     }
     return text;
 }
