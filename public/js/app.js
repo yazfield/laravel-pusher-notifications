@@ -68,9 +68,31 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-__webpack_require__(2);
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_laravel_echo__);
+window._ = __webpack_require__(6);
+window.$ = window.jQuery = __webpack_require__(4);
+__webpack_require__(3);
+window.Pusher = __webpack_require__(7);
+
+
+var PUSHER_KEY = 'your-pusher-key';
+
+var NOTIFICATION_TYPES = {
+    follow: 'App\\Notifications\\UserFollowed',
+    newPost: 'App\\Notifications\\NewPost'
+};
+
+window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
+    broadcaster: 'pusher',
+    key: PUSHER_KEY,
+    cluster: 'eu',
+    encrypted: true
+});
 
 var notifications = [];
 
@@ -150,34 +172,7 @@ function makeNotificationText(notification) {
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_laravel_echo__);
-window._ = __webpack_require__(6);
-window.$ = window.jQuery = __webpack_require__(4);
-__webpack_require__(3);
-window.Pusher = __webpack_require__(7);
-
-
-var PUSHER_KEY = 'your-pusher-key';
-
-var NOTIFICATION_TYPES = {
-    follow: 'App\\Notifications\\UserFollowed',
-    newPost: 'App\\Notifications\\NewPost'
-};
-
-window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
-    broadcaster: 'pusher',
-    key: PUSHER_KEY,
-    cluster: 'eu',
-    encrypted: true
-});
-
-/***/ }),
+/* 2 */,
 /* 3 */
 /***/ (function(module, exports) {
 
