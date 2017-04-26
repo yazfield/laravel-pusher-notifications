@@ -35,7 +35,7 @@ class UserFollowed extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'broadcast'];
     }
 
     /**
@@ -49,6 +49,24 @@ class UserFollowed extends Notification implements ShouldQueue
         return [
             'follower_id' => $this->follower->id,
             'follower_name' => $this->follower->name,
+        ];
+    }
+
+    /**
+     * Get the array representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
+    public function toArray($notifiable)
+    {
+        return [
+            'id' => $this->id,
+            'read_at' => null,
+            'data' => [
+                'follower_id' => $this->follower->id,
+                'follower_name' => $this->follower->name,
+            ],
         ];
     }
 }

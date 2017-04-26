@@ -42,7 +42,7 @@ class NewPost extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'broadcast'];
     }
 
 
@@ -58,6 +58,25 @@ class NewPost extends Notification implements ShouldQueue
             'following_id' => $this->following->id,
             'following_name' => $this->following->name,
             'post_id' => $this->post->id,
+        ];
+    }
+
+    /**
+     * Get the array representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
+    public function toArray($notifiable)
+    {
+        return [
+            'id' => $this->id,
+            'read_at' => null,
+            'data' => [
+                'following_id' => $this->following->id,
+                'following_name' => $this->following->name,
+                'post_id' => $this->post->id,
+            ],
         ];
     }
 }

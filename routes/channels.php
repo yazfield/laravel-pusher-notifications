@@ -10,6 +10,7 @@
 | used to check if an authenticated user can listen to the channel.
 |
 */
+use Illuminate\Support\Facades\Broadcast;
 
 Broadcast::channel('App.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
