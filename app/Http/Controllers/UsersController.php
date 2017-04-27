@@ -17,6 +17,9 @@ class UsersController extends Controller
     public function follow(User $user)
     {
         $follower = auth()->user();
+        if ($follower->id == $user->id) {
+            return back()->withError("You can't follow yourself");
+        }
         if(!$follower->isFollowing($user->id)) {
             $follower->follow($user->id);
 
@@ -25,7 +28,7 @@ class UsersController extends Controller
 
             return back()->withSuccess("You are now friends with {$user->name}");
         }
-        return back()->withSuccess("You are already following {$user->name}");
+        return back()->withError("You are already following {$user->name}");
     }
 
     public function unfollow(User $user)
@@ -35,7 +38,7 @@ class UsersController extends Controller
             $follower->unfollow($user->id);
             return back()->withSuccess("You are no longer friends with {$user->name}");
         }
-        return back()->withSuccess("You are not following {$user->name}");
+        return back()->withError("You are not following {$user->name}");
     }
 
     public function notifications()
